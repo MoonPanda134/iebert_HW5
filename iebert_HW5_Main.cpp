@@ -11,12 +11,11 @@ defined previously. Create a struct called Profile and insert values from
 a text file into a Profile template of MyList class object: 'pMyList'.
 *************************************************************************/
 
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <queue>
-#include <deque>
-
+#include <string>
 #include "MyClasses.h"
 
 using namespace std;
@@ -35,3 +34,26 @@ ostream& operator<< (ostream &out, Profile &user){
     out << user.fullname<<"--" <<user.state;
     return out;
 }
+
+
+int main() {
+    Mylist<Profile> pMyList;
+    string line;
+    Profile temp;
+
+  ifstream file("presidentsWstates.txt");
+	if (file.is_open()){
+	while (getline(file, line)){
+		stringstream ss(line);
+		getline(ss, temp.fullname, '\t');
+		getline(ss, temp.state, '\t');
+        pMyList.insertHead(temp);
+        }
+    }
+    
+    pMyList.display();
+
+
+    return 0;
+}
+
